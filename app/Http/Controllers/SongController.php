@@ -12,7 +12,8 @@ class SongController extends Controller
      */
     public function index()
     {
-        return response()->json(['message' => 'connected.']);
+
+        return Song::all();
     }
 
     /**

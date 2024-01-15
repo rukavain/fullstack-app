@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const View = () => {
     const [song, setSong] = useState("");
@@ -12,7 +13,12 @@ const View = () => {
             .catch((error) => console.error("Error fetching data", error));
     }, []);
 
-    return <div>{song}</div>;
+    return (
+        <div>
+            {song}
+            <Link to="/">Go back to dashboard</Link>
+        </div>
+    );
 };
 
 export default View;

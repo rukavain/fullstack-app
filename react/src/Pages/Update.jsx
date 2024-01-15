@@ -1,7 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Update = () => {
-    return <div>Update</div>;
+    return (
+        <>
+            <h1>Update</h1>
+            <Link to="/">Go back to dashboard</Link>
+        </>
+    );
 };
 
 export default Update;

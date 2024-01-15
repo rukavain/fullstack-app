@@ -20,7 +20,11 @@ class SongController extends Controller
      */
     public function store(Request $request)
     {
-
+        request()->validate([
+            'title' => 'required|min:3|max:255',
+            'artist' => 'required|min:3|max:255',
+            'album' => 'required|min:3|max:255',
+        ]);
 
         Song::create($request->all());
 

@@ -1,6 +1,7 @@
 import React from "react";
-import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Create = () => {
     const [title, setTitle] = useState("");
@@ -65,6 +66,7 @@ const Create = () => {
                     >
                         Add song
                     </button>
+                    <Link to="/">Go back to dashboard</Link>
                 </form>
             </div>
         </>

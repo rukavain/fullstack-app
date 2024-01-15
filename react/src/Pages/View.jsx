@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Button from "../components/Button.jsx";
 
 const View = () => {
     const [songs, setSongs] = useState([]);
@@ -16,13 +17,23 @@ const View = () => {
     return (
         <div>
             {songs.map((song) => (
-                <div key={song.id}>
+                <div
+                    className="border border-slate-800 rounded-md py-2 px-6 m-3"
+                    key={song.id}
+                >
                     <p>Title: {song.title}</p>
-                    <p>Artist: {song.Artist}</p>
+                    <p>Artist: {song.artist}</p>
                     <p>Album: {song.album}</p>
                 </div>
             ))}
-            <Link to="/">Go back to dashboard</Link>
+            <Button
+                border={"border-green-600"}
+                name="Go back to dashboard"
+                bg={"green"}
+                color={"white"}
+            >
+                <Link to="/"></Link>
+            </Button>
         </div>
     );
 };

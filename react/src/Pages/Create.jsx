@@ -7,6 +7,7 @@ const Create = () => {
     const [title, setTitle] = useState("");
     const [artist, setArtist] = useState("");
     const [album, setAlbum] = useState("");
+    const [addedMessage, setAddedMessage] = useState("");
 
     const handleTitleChange = (e) => setTitle(e.target.value);
     const handleArtistChange = (e) => setArtist(e.target.value);
@@ -21,8 +22,14 @@ const Create = () => {
 
         axios
             .post("http://localhost:8000/api/createsongs", data)
-            .then((response) => console.log(response.data))
-            .catch((error) => console.error("Error fetching data", error));
+            .then((response) => {
+                console.log(response.data);
+                setAddedMessage("Successfully Added Song.");
+            })
+            .catch((error) => {
+                console.error("Error fetching data", error);
+                setAddedMessage("Error Adding Song. Please try again.");
+            });
     };
 
     return (
@@ -66,7 +73,22 @@ const Create = () => {
                     >
                         Add song
                     </button>
-                    <Link to="/">Go back to dashboard</Link>
+
+                    {addedMessage && (
+                        <button
+                            onClick={() => {
+                                className = `hidden`;
+                            }}
+                            className="py-1 px-3 text-slate-800 my-2  rounded-md border-2 border-green-600 font-bold hover:bg-green-600 hover:text-white transition"
+                        >
+                            {addedMessage}
+                        </button>
+                    )}
+                    <Link to="/">
+                        <button className="text-center py-2 px-6 my-2 rounded-md border-2 border-slate-800 hover:bg-slate-800 hover:text-white font-bold transition">
+                            Go back to dashboard
+                        </button>
+                    </Link>
                 </form>
             </div>
         </>

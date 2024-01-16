@@ -26,14 +26,14 @@ const View = () => {
                     <p>Album: {song.album}</p>
                 </div>
             ))}
-            <Button
-                border={"border-green-600"}
-                name="Go back to dashboard"
-                bg={"green"}
-                color={"white"}
-            >
-                <Link to="/"></Link>
-            </Button>
+            <Link to="/">
+                <Button
+                    border={"border-green-600"}
+                    name="Go back to dashboard"
+                    bg={"green"}
+                    color={"white"}
+                ></Button>
+            </Link>
         </div>
     );
 };

@@ -5,7 +5,7 @@ const Update = () => {
     return (
         <>
             <h1>Update</h1>
-            <Link to="/">Go back to dashboard</Link>
+            <Link to="/view">Go back</Link>
         </>
     );
 };

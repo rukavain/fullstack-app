@@ -6,15 +6,16 @@ const Home = () => {
         <>
             <nav>
                 <ul>
-                    <li className="border border-slate-800 px-6 py-2 rounded-md hover:bg-slate-800 hover:text-white text-center my-2 transition cursor-pointer">
-                        <Link to="/create">Add</Link>
-                    </li>
-                    <li className="border border-slate-800 px-6 py-2 rounded-md hover:bg-slate-800 hover:text-white text-center my-2 transition cursor-pointer">
-                        <Link to="/view">View</Link>
-                    </li>
-                    <li className="border border-slate-800 px-6 py-2 rounded-md hover:bg-slate-800 hover:text-white text-center my-2 transition cursor-pointer">
-                        <Link to="/update">Update</Link>
-                    </li>
+                    <Link to="/create">
+                        <li className="border border-slate-800 px-6 py-2 rounded-md hover:bg-slate-800 hover:text-white text-center my-2 transition cursor-pointer">
+                            Add
+                        </li>
+                    </Link>
+                    <Link to="/view">
+                        <li className="border border-slate-800 px-6 py-2 rounded-md hover:bg-slate-800 hover:text-white text-center my-2 transition cursor-pointer">
+                            View
+                        </li>
+                    </Link>
                 </ul>
             </nav>
         </>

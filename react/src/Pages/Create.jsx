@@ -34,7 +34,7 @@ const Create = () => {
 
     return (
         <>
-            <div className="flex justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
                 <form className="flex flex-col border border-slate-800 rounded-md p-5 gap-4">
                     <div className="flex justify-center items-start gap-2 flex-col">
                         <label htmlFor="">Song Title</label>
@@ -74,22 +74,22 @@ const Create = () => {
                         Add song
                     </button>
 
-                    {addedMessage && (
-                        <button
-                            onClick={() => {
-                                className = `hidden`;
-                            }}
-                            className="py-1 px-3 text-slate-800 my-2  rounded-md border-2 border-green-600 font-bold hover:bg-green-600 hover:text-white transition"
-                        >
-                            {addedMessage}
-                        </button>
-                    )}
                     <Link to="/">
                         <button className="text-center py-2 px-6 my-2 rounded-md border-2 border-slate-800 hover:bg-slate-800 hover:text-white font-bold transition">
                             Go back to dashboard
                         </button>
                     </Link>
                 </form>
+                {addedMessage && (
+                    <button
+                        onClick={() => {
+                            className = `hidden`;
+                        }}
+                        className="py-2 px-7 text-slate-800 my-4 rounded-md border border-green-600 hover:bg-green-600 hover:text-white transition"
+                    >
+                        {addedMessage}
+                    </button>
+                )}
             </div>
         </>
     );

@@ -34,20 +34,6 @@ const View = () => {
             });
     };
 
-    const updateSong = (songId) => {
-        axios
-            .put(`http://localhost:8000/api/songs/${songId}`)
-            .then((response) => {
-                console.log(response.data);
-                setUpdateMsg("Successfully updated song.");
-                setIsLoading(false);
-            })
-            .catch((error) =>
-                console.error("Error blah blah fix the code man.", error)
-            );
-        setUpdateMsg("Error updating song. Please try again.");
-    };
-
     const viewSong = (songId) => {
         axios
             .get(`http://localhost:8000/api/songs/${songId}`)
@@ -69,7 +55,10 @@ const View = () => {
                     </h1>
                 ) : (
                     <div>
-                        <Link to="/">
+                        <Link
+                            className="flex justify-center items-center"
+                            to="/"
+                        >
                             <Button
                                 border={"border-green-600"}
                                 name="Go back to dashboard"
@@ -95,24 +84,25 @@ const View = () => {
                                 className="border border-slate-800 rounded-md py-2 px-6 m-3"
                                 key={song.id}
                             >
-                                <div className="flex justify-around items-center gap-4">
+                                <div className="flex justify-between items-center gap-4 ">
                                     <div className="p-4">
                                         <p>Title: {song.title}</p>
                                         <p>Artist: {song.artist}</p>
                                         <p>Album: {song.album}</p>
                                     </div>
-
-                                    <button
-                                        onClick={() => deleteSong(song.id)}
-                                        className="border border-red-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-red-600 transition"
-                                    >
-                                        Delete
-                                    </button>
-                                    <Link to="/update">
-                                        <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition">
-                                            Update
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => deleteSong(song.id)}
+                                            className="border border-red-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-red-600 transition"
+                                        >
+                                            Delete
                                         </button>
-                                    </Link>
+                                        <Link to="/update">
+                                            <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition">
+                                                Update
+                                            </button>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         ))}

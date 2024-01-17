@@ -14,9 +14,26 @@ const Update = () => {
     const handleArtistChange = (e) => setArtist(e.target.value);
     const handleAlbumChange = (e) => setAlbum(e.target.value);
 
-    const updateSong = (songId) => {
+    useEffect(() => {
         axios
-            .put(`http://localhost:8000/api/songs/${songId}`)
+            .get(`http://localhost:8000/api/songs/${songId}`)
+            .then((response) => {
+                const { title, artist, album } = response.data;
+                setTitle(title);
+                setArtist(artist);
+                setAlbum(album);
+            })
+            .catch((error) => console.error("Error fetching data", error));
+    });
+
+    const updateSong = (songId) => {
+        const data = {
+            title: title,
+            artist: artist,
+            album: album,
+        };
+        axios
+            .put(`http://localhost:8000/api/songs/${songId}`, data)
             .then((response) => {
                 console.log(response.data);
                 setUpdateMsg("Successfully updated song.");
@@ -37,7 +54,7 @@ const Update = () => {
                         <label htmlFor="">Song Title</label>
                         <input
                             onChange={handleTitleChange}
-                            value={title}
+                            value={songId.title}
                             className="border border-slate-800 rounded-md p-2"
                             type="text"
                             required
@@ -47,7 +64,7 @@ const Update = () => {
                         <label htmlFor="">Song Artist</label>
                         <input
                             onChange={handleArtistChange}
-                            value={artist}
+                            value={songId.artist}
                             type="text"
                             className="border border-slate-800 rounded-md p-2"
                             required
@@ -57,7 +74,7 @@ const Update = () => {
                         <label htmlFor="">Song Album</label>
                         <input
                             onChange={handleAlbumChange}
-                            value={album}
+                            value={songId.album}
                             type="text"
                             className="border border-slate-800 rounded-md p-2"
                             required

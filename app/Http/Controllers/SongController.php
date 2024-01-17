@@ -13,7 +13,7 @@ class SongController extends Controller
     public function index()
     {
 
-        return Song::all();
+        return Song::orderBy('created_at', 'DESC');
     }
 
     /**
@@ -37,7 +37,7 @@ class SongController extends Controller
      */
     public function show(Song $song)
     {
-        return $song;
+        return response()->json($song);
     }
 
     /**

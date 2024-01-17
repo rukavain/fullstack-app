@@ -30,18 +30,19 @@ const View = () => {
             .then((response) => {
                 console.log(response.data);
                 setDelMessage("Song Deleted Successfully.");
-                setSongs(songs.map((song) => song.id !== songId));
+                setSongs(songs.filter((song) => song.id !== songId));
             });
     };
 
-    const viewSong = (songId) => {
-        axios
-            .get(`http://localhost:8000/api/songs/${songId}`)
-            .then((response) => console.log(response.data))
-            .catch((error) =>
-                console.error("error retrieving song data.", error)
-            );
-    };
+    // const viewSong = () => {
+    //     const songId = match.params.id;
+    //     useEffect(() => {
+    //         axios
+    //             .get(`http://localhost:8000/api/songs/${songId}`)
+    //             .then((response) => console.log(response.data))
+    //             .catch((error) => console.error("FIX UR CODE MAN", error));
+    //     }, [match.params.id]);
+    // };
 
     return (
         <>

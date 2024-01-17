@@ -8,6 +8,7 @@ const Create = () => {
     const [artist, setArtist] = useState("");
     const [album, setAlbum] = useState("");
     const [addedMessage, setAddedMessage] = useState("");
+    const [isHidden, setIsHidden] = useState(false);
 
     const handleTitleChange = (e) => setTitle(e.target.value);
     const handleArtistChange = (e) => setArtist(e.target.value);
@@ -82,12 +83,21 @@ const Create = () => {
                 </form>
                 {addedMessage && (
                     <button
-                        onClick={() => {
-                            className = `hidden`;
-                        }}
-                        className="py-2 px-7 text-slate-800 my-4 rounded-md border border-green-600 hover:bg-green-600 hover:text-white transition"
+                        className={`flex justify-center items-center p-3 my-5 border border-slate-700 cursor-default ${
+                            isHidden && `hidden`
+                        }`}
                     >
-                        {addedMessage}
+                        {" "}
+                        {addedMessage}{" "}
+                        <p
+                            className={`border border-slate-700 rounded-sm py-1 px-3 mx-2  cursor-pointer`}
+                            onClick={() => {
+                                setAddedMessage("");
+                            }}
+                        >
+                            {" "}
+                            X{" "}
+                        </p>
                     </button>
                 )}
             </div>

@@ -12,8 +12,8 @@ class SongController extends Controller
      */
     public function index()
     {
-
-        return Song::orderBy('created_at', 'DESC');
+        return Song::all();
+        // return Song::orderBy('created_at', 'DESC');
     }
 
     /**

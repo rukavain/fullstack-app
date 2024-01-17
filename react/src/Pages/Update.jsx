@@ -1,49 +1,72 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Update = () => {
+    const { id } = useParams();
+    const [song, setSong] = useState({});
     const [title, setTitle] = useState("");
     const [artist, setArtist] = useState("");
     const [album, setAlbum] = useState("");
+    const [retrieveMessage, setRetrieveMessage] = useState("");
     const [updateMsg, setUpdateMsg] = useState("");
-    const [isHidden, setIsHidden] = useState(false);
-
-    const handleTitleChange = (e) => setTitle(e.target.value);
-    const handleArtistChange = (e) => setArtist(e.target.value);
-    const handleAlbumChange = (e) => setAlbum(e.target.value);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8000/api/songs/${songId}`)
+            .put(`http://localhost:8000/api/songs/${id}`)
             .then((response) => {
-                const { title, artist, album } = response.data;
-                setTitle(title);
-                setArtist(artist);
-                setAlbum(album);
+                console.log("Retrieved data successfully.", response.data);
+                setRetrieveMessage("Retrieved data successfully.");
+                setSong(response.data);
+                setTitle(response.data.title);
+                setArtist(response.data.artist);
+                setAlbum(response.data.album);
+                setIsLoading(false);
             })
-            .catch((error) => console.error("Error fetching data", error));
-    });
+            .catch((error) => {
+                console.log("Error retrieving data", error);
+                setRetrieveMessage("Error retrieving data");
+            });
+    }, [id]);
 
-    const updateSong = (songId) => {
+    const handleUpdateSong = () => {
         const data = {
             title: title,
             artist: artist,
             album: album,
         };
+
         axios
-            .put(`http://localhost:8000/api/songs/${songId}`, data)
+            .put(`http://localhost:8000/api/songs/${id}`, data)
             .then((response) => {
-                console.log(response.data);
+                console.log("Successfully updated song", response.data);
                 setUpdateMsg("Successfully updated song.");
-                setIsLoading(false);
             })
-            .catch((error) =>
-                console.error("Error blah blah fix the code man.", error)
-            );
-        setUpdateMsg("Error updating song. Please try again.");
+            .catch((error) => {
+                console.error("Error updating message", error);
+                setUpdateMsg("Error updating message");
+            });
     };
+
+    // const updateSong = (songId) => {
+    //     const data = {
+    //         title: title,
+    //         artist: artist,
+    //         album: album,
+    //     };
+    //     axios
+    //         .put(`http://localhost:8000/api/songs/${songId}`, data)
+    //         .then((response) => {
+    //             console.log(response.data);
+    //             setUpdateMsg("Successfully updated song.");
+    //         })
+    //         .catch((error) =>
+    //             console.error("Error blah blah fix the code man.", error)
+    //         );
+    //     setUpdateMsg("Error updating song. Please try again.");
+    // };
 
     return (
         <>
@@ -53,8 +76,8 @@ const Update = () => {
                     <div className="flex justify-center items-start gap-2 flex-col">
                         <label htmlFor="">Song Title</label>
                         <input
-                            onChange={handleTitleChange}
-                            value={songId.title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            value={title}
                             className="border border-slate-800 rounded-md p-2"
                             type="text"
                             required
@@ -63,8 +86,8 @@ const Update = () => {
                     <div className="flex justify-center items-start gap-2 flex-col">
                         <label htmlFor="">Song Artist</label>
                         <input
-                            onChange={handleArtistChange}
-                            value={songId.artist}
+                            onChange={(e) => setArtist(e.target.value)}
+                            value={artist}
                             type="text"
                             className="border border-slate-800 rounded-md p-2"
                             required
@@ -73,8 +96,8 @@ const Update = () => {
                     <div className="flex justify-center items-start gap-2 flex-col">
                         <label htmlFor="">Song Album</label>
                         <input
-                            onChange={handleAlbumChange}
-                            value={songId.album}
+                            onChange={(e) => setAlbum(e.target.value)}
+                            value={album}
                             type="text"
                             className="border border-slate-800 rounded-md p-2"
                             required
@@ -83,7 +106,7 @@ const Update = () => {
                     <button
                         type="button"
                         className="border border-green-600 rounded-md py-2 px-6 hover:text-white hover:bg-green-600 transition"
-                        onClick={updateSong}
+                        onClick={handleUpdateSong}
                     >
                         Add song
                     </button>
@@ -96,12 +119,9 @@ const Update = () => {
                 </form>
                 {updateMsg && (
                     <button
-                        onClick={() => {
-                            setIsHidden(true);
-                        }}
-                        className={`py-2 px-7 text-slate-800 my-4 rounded-md border border-green-600 hover:bg-green-600 hover:text-white transition ${
-                            isHidden && `hidden`
-                        }`}
+                        onClick={() => setUpdateMsg("")}
+                        className={`py-2 px-7 text-slate-800 my-4 rounded-md border border-green-600 hover:bg-green-600 hover:text-white transition
+                           `}
                     >
                         {updateMsg}
                     </button>

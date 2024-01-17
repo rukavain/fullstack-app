@@ -70,13 +70,14 @@ const View = () => {
 
                         {delMessage && (
                             <h1
-                                onClick={() => {
-                                    setIsHidden(true);
-                                }}
-                                className={`text-red-500 text-center p-5 cursor-pointer ${
-                                    isHidden ? "hidden" : ""
-                                } `}
+                                className={`flex flex-row-reverse my-6 cursor-default justify-center items-center text-red-500 text-center p-5 border py-2 px-6 border-red-700`}
                             >
+                                <h1
+                                    onClick={() => setDelMessage("")}
+                                    className="py-1 px-4 rounded-sm border hover:bg-red-700 hover:text-white transition border-red-700 mx-5 cursor-pointer"
+                                >
+                                    X
+                                </h1>
                                 {delMessage}
                             </h1>
                         )}
@@ -98,7 +99,7 @@ const View = () => {
                                         >
                                             Delete
                                         </button>
-                                        <Link to="/update">
+                                        <Link to={`/update/${song.id}`}>
                                             <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition">
                                                 Update
                                             </button>

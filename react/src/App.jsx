@@ -9,10 +9,10 @@ export default function App() {
         <div className="flex justify-center items-center my-6">
             <Router>
                 <Routes>
-                    <Route path="/" Component={Home} />
-                    <Route path="/create" Component={Create} />
-                    <Route path="/view" Component={View} />
-                    <Route path="/update" Component={Update} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/create" element={<Create />} />
+                    <Route path="/view" element={<View />} />
+                    <Route path="/update/:id" element={<Update />} />
                 </Routes>
             </Router>
         </div>

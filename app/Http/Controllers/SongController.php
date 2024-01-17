@@ -45,6 +45,8 @@ class SongController extends Controller
      */
     public function update(Request $request, Song $song)
     {
+        logger($request->all());
+
         request()->validate([
             'title' => 'required|min:3|max:255',
             'artist' => 'required|min:3|max:255',

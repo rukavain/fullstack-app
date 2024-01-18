@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Button from "../components/Button.jsx";
 
 const View = () => {
+    const { id } = useParams();
     const [songs, setSongs] = useState([]);
     const [delMessage, setDelMessage] = useState("");
     const [isHidden, setIsHidden] = useState(false);
@@ -34,15 +35,20 @@ const View = () => {
             });
     };
 
-    // const viewSong = () => {
-    //     const songId = match.params.id;
-    //     useEffect(() => {
-    //         axios
-    //             .get(`http://localhost:8000/api/songs/${songId}`)
-    //             .then((response) => console.log(response.data))
-    //             .catch((error) => console.error("FIX UR CODE MAN", error));
-    //     }, [match.params.id]);
-    // };
+    const viewSong = () => {
+        useEffect(() => {
+            axios
+                .get(`http://localhost:8000/api/songs/${id}`)
+                .then((response) =>
+                    console.log("Successfully retrieved data.", response.data)
+                )
+                .error((error) =>
+                    console.error(
+                        "Check if you have XAMPP open or you have php artisan serve running."
+                    )
+                );
+        }, [id]);
+    };
 
     return (
         <>
@@ -102,6 +108,11 @@ const View = () => {
                                         <Link to={`/update/${song.id}`}>
                                             <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition">
                                                 Update
+                                            </button>
+                                        </Link>
+                                        <Link to={`/viewsong/${song.id}`}>
+                                            <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition">
+                                                View
                                             </button>
                                         </Link>
                                     </div>

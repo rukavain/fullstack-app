@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/songs', [SongController::class, 'index'])->name('songs.index');
-Route::get('/song/{song}', [SongController::class, 'show'])->name('songs.show');
+Route::get('/songs/{song}', [SongController::class, 'show'])->name('songs.show');
 Route::post('/createsongs', [SongController::class, 'store'])->name('songs.store');
 Route::put('/songs/{song}', [SongController::class, 'update'])->name('songs.update');
 Route::delete('/songs/{song}', [SongController::class, 'destroy'])->name('song.destroy');

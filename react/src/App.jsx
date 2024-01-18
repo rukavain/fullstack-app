@@ -3,6 +3,7 @@ import Update from "./Pages/Update.jsx";
 import View from "./Pages/View.jsx";
 import Create from "./Pages/Create.jsx";
 import Home from "./Pages/Home.jsx";
+import ViewSong from "./Pages/ViewSong.jsx";
 
 export default function App() {
     return (
@@ -12,6 +13,7 @@ export default function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/create" element={<Create />} />
                     <Route path="/view" element={<View />} />
+                    <Route path="/viewsong/:id" element={<ViewSong />} />
                     <Route path="/update/:id" element={<Update />} />
                 </Routes>
             </Router>

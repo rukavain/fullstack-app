@@ -50,24 +50,6 @@ const Update = () => {
             });
     };
 
-    // const updateSong = (songId) => {
-    //     const data = {
-    //         title: title,
-    //         artist: artist,
-    //         album: album,
-    //     };
-    //     axios
-    //         .put(`http://localhost:8000/api/songs/${songId}`, data)
-    //         .then((response) => {
-    //             console.log(response.data);
-    //             setUpdateMsg("Successfully updated song.");
-    //         })
-    //         .catch((error) =>
-    //             console.error("Error blah blah fix the code man.", error)
-    //         );
-    //     setUpdateMsg("Error updating song. Please try again.");
-    // };
-
     return (
         <>
             <div className="flex flex-col justify-center items-start">
@@ -108,7 +90,7 @@ const Update = () => {
                         className="border border-green-600 rounded-md py-2 px-6 hover:text-white hover:bg-green-600 transition"
                         onClick={handleUpdateSong}
                     >
-                        Add song
+                        Update song
                     </button>
 
                     <Link to="/">

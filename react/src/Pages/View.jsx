@@ -8,8 +8,6 @@ const View = () => {
     const { id } = useParams();
     const [songs, setSongs] = useState([]);
     const [delMessage, setDelMessage] = useState("");
-    const [isHidden, setIsHidden] = useState(false);
-    const [updateMsg, setUpdateMsg] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -61,19 +59,16 @@ const View = () => {
                         Loading song data...
                     </h1>
                 ) : (
-                    <div>
-                        <Link
-                            className="flex justify-center items-center"
-                            to="/"
-                        >
+                    <div className="flex flex-col justify-center items-center">
+                        <Link to="/create">
                             <Button
+                                grow={"flex-1"}
                                 border={"border-green-600"}
-                                name="Go back to dashboard"
+                                name="Add song"
                                 bg={"green"}
                                 color={"white"}
                             ></Button>
                         </Link>
-
                         {delMessage && (
                             <h1
                                 className={`flex flex-row-reverse my-6 cursor-default justify-center items-center text-red-500 text-center p-5 border py-2 px-6 border-red-700`}
@@ -89,7 +84,7 @@ const View = () => {
                         )}
                         {songs.map((song) => (
                             <div
-                                className="border border-slate-800 rounded-md py-2 px-6 m-3"
+                                className="border border-slate-800 rounded-md py-2 px-6 m-3 min-w-full"
                                 key={song.id}
                             >
                                 <div className="flex justify-between items-center gap-4 ">

@@ -7,6 +7,7 @@ const ViewSong = () => {
     const { id } = useParams();
     const [song, setSong] = useState({});
     const [successMessage, setSuccessMessage] = useState("");
+    const [delMessage, setDelMessage] = useState("");
 
     useEffect(() => {
         axios
@@ -21,28 +22,51 @@ const ViewSong = () => {
             });
     }, [id]);
 
+    const deleteSong = () => {
+        axios
+            .delete(`http://localhost:8000/api/songs/${id}`)
+            .then((response) => {
+                console.log(response.data);
+                setDelMessage("Song Deleted Successfully.");
+            })
+            .catch((error) => console.error("Error fetching data", error));
+        setDelMessage("Error Deleting Song.");
+    };
+
     return (
         <>
             <div>
                 {song ? (
                     <>
-                        <div>
+                        <h1 className="text-center text-3xl font-semibold ">
+                            {" "}
+                            Song details{" "}
+                        </h1>
+                        <div className="flex justify-center items-start flex-col border border-slate-800 rounded-md p-5 my-4">
+                            <h1>ID: {song.id}</h1>
                             <h1>Title: {song.title}</h1>
                             <p>Artist: {song.artist}</p>
                             <p>Album: {song.album}</p>
                         </div>
-
-                        <div>
+                        <div className="flex justify-center items-center gap-4">
                             <div>
                                 <Link to={"/"}>
-                                    <button>Home</button>
+                                    <button className="py-2 px-4 rounded-sm border border-slate-700 hover:bg-slate-700 hover:text-white transition">
+                                        Home
+                                    </button>
                                 </Link>
                             </div>
-                            <div>
-                                <Link to={"/view"}>
-                                    <button>Song list</button>
+                            <div className="py-2 px-4 rounded-sm border border-slate-700 hover:bg-slate-700 hover:text-white transition">
+                                <Link to={`/update/${song.id}`}>
+                                    <button>Update</button>
                                 </Link>
                             </div>
+                            <button
+                                onClick={deleteSong}
+                                className="py-2 px-4 rounded-sm border border-slate-700 hover:bg-slate-700 hover:text-white transition"
+                            >
+                                Delete
+                            </button>
                         </div>
                     </>
                 ) : (

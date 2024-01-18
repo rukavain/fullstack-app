@@ -4,15 +4,18 @@ import View from "./Pages/View.jsx";
 import Create from "./Pages/Create.jsx";
 import Home from "./Pages/Home.jsx";
 import ViewSong from "./Pages/ViewSong.jsx";
+import Deleted from "./notifications/Deleted.jsx";
+import Updated from "./notifications/Updated.jsx";
 
 export default function App() {
     return (
         <div className="flex justify-center items-center my-6">
             <Router>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<View />} />
+                    <Route path="/deleted" element={<Deleted />} />
+                    <Route path="/updated" element={<Updated />} />
                     <Route path="/create" element={<Create />} />
-                    <Route path="/view" element={<View />} />
                     <Route path="/viewsong/:id" element={<ViewSong />} />
                     <Route path="/update/:id" element={<Update />} />
                 </Routes>

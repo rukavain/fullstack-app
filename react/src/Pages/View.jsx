@@ -84,7 +84,7 @@ const View = () => {
                         )}
                         {songs.map((song) => (
                             <div
-                                className="border border-slate-800 rounded-md py-2 px-6 m-3 min-w-full"
+                                className="bg-white shadow-md rounded-md py-2 px-6 m-3 min-w-full"
                                 key={song.id}
                             >
                                 <div className="flex justify-between items-center gap-4 ">

@@ -35,35 +35,37 @@ const ViewSong = () => {
 
     return (
         <>
-            <div>
+            <div className="h-dvh my-12">
                 {song ? (
                     <>
-                        <h1 className="text-center text-3xl font-semibold ">
-                            {" "}
-                            Song details{" "}
-                        </h1>
-                        <div className="flex justify-center items-start flex-col border border-slate-800 rounded-md p-5 my-4">
-                            <h1>ID: {song.id}</h1>
-                            <h1>Title: {song.title}</h1>
-                            <p>Artist: {song.artist}</p>
-                            <p>Album: {song.album}</p>
+                        <div className="flex justify-center items-start bg-white shadow-md flex-col gap-4 rounded-md p-5 my-4">
+                            <h1 className="text-center text-3xl font-semibold">
+                                {" "}
+                                Song details{" "}
+                            </h1>
+                            <div>
+                                <h1>ID: {song.id}</h1>
+                                <h1>Title: {song.title}</h1>
+                                <p>Artist: {song.artist}</p>
+                                <p>Album: {song.album}</p>
+                            </div>
                         </div>
                         <div className="flex justify-center items-center gap-4">
                             <div>
                                 <Link to={"/"}>
-                                    <button className="py-2 px-4 rounded-sm border border-slate-700 hover:bg-slate-700 hover:text-white transition">
+                                    <button className="py-2 bg-white shadow-md px-4 rounded-sm border border-slate-700 hover:bg-slate-700 hover:text-white transition">
                                         Home
                                     </button>
                                 </Link>
                             </div>
-                            <div className="py-2 px-4 rounded-sm border border-slate-700 hover:bg-slate-700 hover:text-white transition">
+                            <div className="py-2 px-4 rounded-sm bg-white shadow-md border border-slate-700 hover:bg-slate-700 hover:text-white transition">
                                 <Link to={`/update/${song.id}`}>
                                     <button>Update</button>
                                 </Link>
                             </div>
                             <button
                                 onClick={deleteSong}
-                                className="py-2 px-4 rounded-sm border border-slate-700 hover:bg-slate-700 hover:text-white transition"
+                                className="py-2 px-4 rounded-sm border bg-white shadow-sm border-slate-700 hover:bg-slate-700 hover:text-white transition"
                             >
                                 Delete
                             </button>

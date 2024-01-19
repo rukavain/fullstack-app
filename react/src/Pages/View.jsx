@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import Button from "../components/Button.jsx";
 
 const View = () => {
     const { id } = useParams();
     const [songs, setSongs] = useState([]);
     const [delMessage, setDelMessage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/songs")
+            .get(`http://localhost:8000/api/songs?page=${currentPage}`)
             .then((response) => {
-                setSongs(response.data);
+                setSongs(response.data.data);
+                setTotalPages(response.data.last_page);
                 setIsLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching data", error);
                 setIsLoading(false);
             });
-    }, []);
+    }, [currentPage]);
 
     const deleteSong = (songId) => {
         axios
@@ -33,24 +34,9 @@ const View = () => {
             });
     };
 
-    const viewSong = () => {
-        useEffect(() => {
-            axios
-                .get(`http://localhost:8000/api/songs/${id}`)
-                .then((response) =>
-                    console.log("Successfully retrieved data.", response.data)
-                )
-                .error((error) =>
-                    console.error(
-                        "Check if you have XAMPP open or you have php artisan serve running."
-                    )
-                );
-        }, [id]);
-    };
-
     return (
         <>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center my-5">
                 <p className="font-bold text-center text-slate-800 text-4xl my-4">
                     Songs List
                 </p>{" "}
@@ -61,13 +47,9 @@ const View = () => {
                 ) : (
                     <div className="flex flex-col justify-center items-center">
                         <Link to="/create">
-                            <Button
-                                grow={"flex-1"}
-                                border={"border-green-600"}
-                                name="Add song"
-                                bg={"green"}
-                                color={"white"}
-                            ></Button>
+                            <button className="bg-white py-2 px-5 border-2 border-green-600 rounded-md shadow-md font-semibold my-2 hover:bg-green-600 hover:text-white transition">
+                                Add song
+                            </button>
                         </Link>
                         {delMessage && (
                             <h1
@@ -82,6 +64,7 @@ const View = () => {
                                 {delMessage}
                             </h1>
                         )}
+
                         {songs.map((song) => (
                             <div
                                 className="bg-white shadow-md rounded-md py-2 px-6 m-3 min-w-full"
@@ -114,6 +97,35 @@ const View = () => {
                                 </div>
                             </div>
                         ))}
+
+                        {/* Pagination */}
+                        <div className="my-2 py-2 bg-white shadow-md rounded-md px-5 flex justify-around items-center w-full">
+                            <button
+                                className="hover:font-bold hover:italic cursor-pointer transition-all"
+                                onClick={() =>
+                                    setCurrentPage((prevPage) =>
+                                        Math.max(prevPage - 1, 1)
+                                    )
+                                }
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+                            <span>
+                                Page {currentPage} of {totalPages}
+                            </span>
+                            <button
+                                className="hover:font-bold hover:italic cursor-pointer transition-all"
+                                onClick={() =>
+                                    setCurrentPage((prevPage) =>
+                                        Math.min(prevPage + 1, totalPages)
+                                    )
+                                }
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>

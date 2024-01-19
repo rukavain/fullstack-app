@@ -12,7 +12,8 @@ class SongController extends Controller
      */
     public function index()
     {
-        return Song::all();
+        $songs = Song::orderBy('created_at', 'DESC')->paginate(5);
+        return response()->json($songs);
         // return Song::orderBy('created_at', 'DESC');
     }
 

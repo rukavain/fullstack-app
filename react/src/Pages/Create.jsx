@@ -35,8 +35,11 @@ const Create = () => {
 
     return (
         <>
-            <div className="flex flex-col justify-center items-center">
-                <form className="flex flex-col border border-slate-800 rounded-md p-5 gap-4">
+            <div className="flex flex-col justify-center items-center my-8">
+                <h1 className="text-4xl font-semibold text-slate-800 my-4 text-left">
+                    Add song
+                </h1>
+                <form className="flex flex-col bg-white shadow-lg rounded-md p-5 gap-4">
                     <div className="flex justify-center items-start gap-2 flex-col">
                         <label htmlFor="">Song Title</label>
                         <input
@@ -83,14 +86,14 @@ const Create = () => {
                 </form>
                 {addedMessage && (
                     <button
-                        className={`flex justify-center items-center p-3 my-5 border border-slate-700 cursor-default ${
+                        className={`flex justify-center items-center p-3 my-5 bg-white rounded-md shadow-md cursor-default ${
                             isHidden && `hidden`
                         }`}
                     >
                         {" "}
                         {addedMessage}{" "}
                         <p
-                            className={`border border-slate-700 rounded-sm py-1 px-3 mx-2  cursor-pointer`}
+                            className={`bg-white shadow-md rounded-lg py-1 px-3 mx-2 hover:bg-slate-800 hover:text-white transition cursor-pointer`}
                             onClick={() => {
                                 setAddedMessage("");
                             }}

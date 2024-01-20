@@ -52,17 +52,15 @@ const View = () => {
                             </button>
                         </Link>
                         {delMessage && (
-                            <h1
-                                className={`flex flex-row-reverse my-6 cursor-default justify-center items-center text-red-500 text-center p-5 border py-2 px-6 border-red-700`}
-                            >
+                            <div className="flex justify-between items-center mx-2 my-2 py-2 bg-white rounded-md shadow-md px-4">
+                                <h1 className={` `}>{delMessage}</h1>
                                 <h1
                                     onClick={() => setDelMessage("")}
-                                    className="py-1 px-4 rounded-sm border hover:bg-red-700 hover:text-white transition border-red-700 mx-5 cursor-pointer"
+                                    className="py-1 px-3 rounded-full bordermx-5 cursor-pointer"
                                 >
-                                    X
+                                    x
                                 </h1>
-                                {delMessage}
-                            </h1>
+                            </div>
                         )}
 
                         {songs.map((song) => (
@@ -79,17 +77,17 @@ const View = () => {
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => deleteSong(song.id)}
-                                            className="border border-red-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-red-600 transition"
+                                            className="border border-red-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-red-600 transition shadow-sm"
                                         >
                                             Delete
                                         </button>
                                         <Link to={`/update/${song.id}`}>
-                                            <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition">
+                                            <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition shadow-sm">
                                                 Update
                                             </button>
                                         </Link>
                                         <Link to={`/viewsong/${song.id}`}>
-                                            <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition">
+                                            <button className="border border-green-600  py-2 my-2 px-4 hover:text-white rounded-xl hover:bg-green-600 transition shadow-sm">
                                                 View
                                             </button>
                                         </Link>
@@ -103,22 +101,25 @@ const View = () => {
                             <button
                                 className="hover:font-bold hover:italic cursor-pointer transition-all"
                                 onClick={() =>
-                                    setCurrentPage((prevPage) =>
-                                        Math.max(prevPage - 1, 1)
+                                    setCurrentPage((page) =>
+                                        Math.max(page - 1, 1)
                                     )
                                 }
                                 disabled={currentPage === 1}
                             >
                                 Previous
                             </button>
-                            <span>
-                                Page {currentPage} of {totalPages}
+                            <span className="flex gap-2">
+                                Page{" "}
+                                <p className="font-semibold">{currentPage} </p>{" "}
+                                of{" "}
+                                <p className="font-semibold"> {totalPages}</p>
                             </span>
                             <button
                                 className="hover:font-bold hover:italic cursor-pointer transition-all"
                                 onClick={() =>
-                                    setCurrentPage((prevPage) =>
-                                        Math.min(prevPage + 1, totalPages)
+                                    setCurrentPage((page) =>
+                                        Math.min(page + 1, totalPages)
                                     )
                                 }
                                 disabled={currentPage === totalPages}

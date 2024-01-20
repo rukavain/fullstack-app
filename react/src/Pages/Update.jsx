@@ -15,7 +15,7 @@ const Update = () => {
 
     useEffect(() => {
         axios
-            .put(`http://localhost:8000/api/songs/${id}`)
+            .get(`http://localhost:8000/api/songs/${id}`)
             .then((response) => {
                 console.log("Retrieved data successfully.", response.data);
                 setRetrieveMessage("Retrieved data successfully.");
@@ -51,9 +51,9 @@ const Update = () => {
     };
     return (
         <>
-            <div className="flex flex-col justify-center items-start">
-                <h1 className="my-4 text-2xl ">Update song</h1>
-                <form className="flex flex-col border border-slate-800 rounded-md p-5 gap-4">
+            <div className="flex flex-col justify-center items-start my-12">
+                <h1 className="my-4 text-3xl font-semibold">Update song</h1>
+                <form className="flex flex-col bg-white shadow-md rounded-md p-5 gap-4">
                     <div className="flex justify-center items-start gap-2 flex-col">
                         <label htmlFor="">Song Title</label>
                         <input

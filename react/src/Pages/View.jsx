@@ -5,16 +5,19 @@ import { Link, useParams } from "react-router-dom";
 const View = () => {
     const { id } = useParams();
     const [songs, setSongs] = useState([]);
+    const [originalSongs, setOriginalSongs] = useState([]);
     const [delMessage, setDelMessage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         axios
             .get(`http://localhost:8000/api/songs?page=${currentPage}`)
             .then((response) => {
                 setSongs(response.data.data);
+                setOriginalSongs(response.data.data);
                 setTotalPages(response.data.last_page);
                 setIsLoading(false);
             })
@@ -34,6 +37,22 @@ const View = () => {
             });
     };
 
+    const handleSearch = () => {
+        const filteredSongs = songs.filter(
+            (song) =>
+                song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                song.artist.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                song.album.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        setSongs(filteredSongs);
+    };
+
+    const handleResetSearch = () => {
+        setSongs(originalSongs);
+        setSearchQuery("");
+    };
+
     return (
         <>
             <div className="flex flex-col justify-center items-center my-5">
@@ -46,6 +65,28 @@ const View = () => {
                     </h1>
                 ) : (
                     <div className="flex flex-col justify-center items-center">
+                        <div>
+                            <input
+                                type="search"
+                                className="py-1 px-2 shadow-lg my-3 "
+                                placeholder="Search"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <button
+                                className="mx-2 py-1 rounded-md shadow-lg hover:shadow-xl hover:bg-slate-500 hover:text-white transition px-4 bg-white"
+                                onClick={handleSearch}
+                            >
+                                Search
+                            </button>
+                            <button
+                                className="mx-2 py-1 rounded-md shadow-lg hover:shadow-xl hover:bg-slate-500 hover:text-white transition px-4 bg-white"
+                                onClick={handleResetSearch}
+                            >
+                                Clear
+                            </button>
+                        </div>
+
                         <Link to="/create">
                             <button className="bg-white py-2 px-5 border-2 border-green-600 rounded-md shadow-md font-semibold my-2 hover:bg-green-600 hover:text-white transition">
                                 Add song
